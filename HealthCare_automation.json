@@ -1,0 +1,492 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Appointment Schedule confirmation form",
+        "formDescription": "Book your healthcare appointment easily.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name"
+            },
+            {
+              "fieldLabel": "=Age",
+              "fieldType": "number"
+            },
+            {
+              "fieldLabel": "Mobile Number"
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email"
+            },
+            {
+              "fieldLabel": "Gender"
+            },
+            {
+              "fieldLabel": "Symptoms",
+              "fieldType": "textarea"
+            },
+            {
+              "fieldLabel": "Appointment Date",
+              "fieldType": "date"
+            },
+            {
+              "fieldLabel": "Doctor"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "0060e7e8-5dcd-4c88-a767-c06903a2ec9c",
+      "name": "On form submission",
+      "webhookId": "579bb672-2c93-4486-87ce-3482b4cfefb1"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "11OmyZuVx8JTQS4war5SSE5_GecWsG8BDqFuYseLrvHA",
+          "mode": "list",
+          "cachedResultName": "Patients",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/11OmyZuVx8JTQS4war5SSE5_GecWsG8BDqFuYseLrvHA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/11OmyZuVx8JTQS4war5SSE5_GecWsG8BDqFuYseLrvHA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "NAME ": "={{ $json.Name }}",
+            "EMAIL": "={{ $json.Email }}",
+            "AGE": "={{ $json.Age }}",
+            "MOBILE NUMBER": "={{ $json['Mobile Number'] }}",
+            "GENDER": "={{ $json.Gender }}",
+            "SYMPTOMS": "={{ $json.Symptoms }}",
+            "DATE": "={{ $json['Appointment Date'] }}",
+            "DOCTOR": "={{ $json.Doctor }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "NAME ",
+              "displayName": "NAME ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "AGE",
+              "displayName": "AGE",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "MOBILE NUMBER",
+              "displayName": "MOBILE NUMBER",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "EMAIL",
+              "displayName": "EMAIL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "GENDER",
+              "displayName": "GENDER",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "SYMPTOMS",
+              "displayName": "SYMPTOMS",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "DATE",
+              "displayName": "DATE",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "DOCTOR",
+              "displayName": "DOCTOR",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "3536fac0-a166-4564-9e43-60d02582ce3b",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "uIeusyPBKsMxZkg2",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "30f7d996-8f07-46a7-9a89-62592727d83d",
+              "name": "Name",
+              "value": "={{ $('On form submission').item.json.Name }}",
+              "type": "string"
+            },
+            {
+              "id": "8732ab00-1566-42e2-9311-7deebc00623d",
+              "name": "age",
+              "value": "={{ $('On form submission').item.json.Age }}",
+              "type": "number"
+            },
+            {
+              "id": "96f211bb-4a0b-430e-bf5d-4af16de09a9d",
+              "name": "mobile number",
+              "value": "={{ $('On form submission').item.json['Mobile Number'] }}",
+              "type": "string"
+            },
+            {
+              "id": "b970dca2-f434-4286-9618-9f33fa257e80",
+              "name": "email",
+              "value": "={{ $('On form submission').item.json.Email }}",
+              "type": "string"
+            },
+            {
+              "id": "0b2a3091-767d-4839-afab-9d504987ee22",
+              "name": "gender",
+              "value": "={{ $('On form submission').item.json.Gender }}",
+              "type": "string"
+            },
+            {
+              "id": "82c67799-cc7e-47f6-8fec-cc90f78814d5",
+              "name": "symptoms",
+              "value": "={{ $('On form submission').item.json.Symptoms }}",
+              "type": "string"
+            },
+            {
+              "id": "dd1ad92a-545a-43f9-8f28-18bb0daa20b4",
+              "name": "date",
+              "value": "={{ $('On form submission').item.json['Appointment Date'] }}",
+              "type": "string"
+            },
+            {
+              "id": "3df09d98-95b0-4f2b-9f9c-1dfa0ef5c664",
+              "name": "doctor",
+              "value": "={{ $('On form submission').item.json.Doctor }}",
+              "type": "string"
+            },
+            {
+              "id": "9bfae381-7a14-4629-8528-065a41a402e2",
+              "name": "submittedAt",
+              "value": "={{ $('On form submission').item.json.submittedAt }}",
+              "type": "string"
+            },
+            {
+              "id": "9ffacf6b-62d7-4e88-8faf-e7240d3073d6",
+              "name": "formMode",
+              "value": "={{ $('On form submission').item.json.formMode }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        0
+      ],
+      "id": "5ecc4413-a110-49f5-8004-bd97cb5ca5d2",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a healthcare assistant.\n\nAnalyze these symptoms:\n{{ $json.symptoms }}\n\nProvide:\n1. Possible condition\n2. Severity\n3. Recommendations\n4. Priority (Low / Medium / High)\n\nKeep the response short and simple.\n\nAdd disclaimer:\n\"This is not professional medical advice.\"",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        608,
+        0
+      ],
+      "id": "9deb07f2-c7c6-4da4-a3ad-7e5153e4fe9f",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        784,
+        176
+      ],
+      "id": "9dfbd5e2-a05a-4bdc-b9d2-9e2ce0ae3bdb",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "efe1d3d4-b25f-419a-8bf8-f420fb0be931",
+              "leftValue": "={{$json[\"text\"]}}",
+              "rightValue": "High",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        960,
+        0
+      ],
+      "id": "3af73794-43e3-45bf-a8c0-dace51254733",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "=Workflow completed successfully at {{ $now }}!\nPatient Name: {{ $('Edit Fields').item.json.Name }}\n\nThe AI system detected a HIGH priority health condition.\n\nSymptoms:{{ $('Append row in sheet').item.json.SYMPTOMS }}\n\nImmediate medical consultation is recommended.\n\nThis is an automated AI-generated alert.\n\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        -128
+      ],
+      "id": "885e4d6c-04ab-4c20-914a-d7355439870e",
+      "name": "Discord",
+      "webhookId": "4ed7ac0b-d9f3-42ff-9ee1-2a5cc580d8d0",
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "OMTcZMdgV9TMcIKT",
+          "name": "Discord Webhook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "=Workflow completed successfully at {{ $now }}!\nHello \n{{ $('Edit Fields').item.json.Name }}\n\nYour symptom analysis has been completed successfully.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        1152,
+        112
+      ],
+      "id": "01bc5cc1-3e6d-4c98-a621-059e091dc0bd",
+      "name": "Discord1",
+      "webhookId": "c8901991-2667-418c-9596-9e570fbfcdeb",
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "hm1GdvUDm30tjNsL",
+          "name": "Discord Webhook account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "reddyrudra018@gmail.com",
+          "mode": "list",
+          "cachedResultName": "reddyrudra018@gmail.com"
+        },
+        "end": "={{ $now.plus(30, 'minutes') }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        1296,
+        -16
+      ],
+      "id": "17c7d7b2-df44-41f8-8b82-59c15a2ec17c",
+      "name": "Create an event",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "JeZ8wePI6XkHLtJE",
+          "name": "Google Calendar OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Discord",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create an event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Discord1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "c09d38f8-b873-4886-9a1a-707bb5a17a2a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e140d796dbd19de8d513a1e8cb40d151e01beb333fa4c25f5e30744fb5d1d543"
+  },
+  "id": "riCDreMucLWqW84O",
+  "tags": []
+}
